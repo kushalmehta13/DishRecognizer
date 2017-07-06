@@ -5,6 +5,7 @@ import magic
 import math
 import shutil
 import argparse
+import imghdr
 from PIL import Image
 
 def createDirectories(Raw_Dataset, isFlagged=False):
@@ -56,10 +57,15 @@ def clean(Raw_Dataset, isFlagged):
                 fileType = m.id_filename(f)
                 if 'text' in fileType:
                     os.remove(f)
-                # if 'png' in fileType:
-                #     im = Image.open(f)
-                #     rgb_im = im.convert('RGB').save(f+'.jpg','JPEG')
-                #     im.close()
+                if 'png' in fileType:
+                    try:
+                        print(f,type(f))
+                        im=Image.open(f)
+                        im.convert('RGB').save(f + ".jpg")
+                        im.close()
+                        os.remove(f)
+                    except Exception as e:
+                        print("Error:",e)
             if os.path.exists(f) and '.jpg' not in f:
                 os.rename(f, f + '.jpg')
 
@@ -135,7 +141,7 @@ def getRawDatasetPath():
                         os.makedirs('../Split_Dataset')
             else:
                 exit()
-            print('false')    
+            print('false')
             return (args.raw_dir,False)
     else:
         sys.exit('Error: --raw_dir not specified')
