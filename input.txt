@@ -1,0 +1,5 @@
+~/models/
+~/raw_directory/
+~/split_directory/
+~/Dataset
+80,20
