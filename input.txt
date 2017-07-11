@@ -1,8 +1,2 @@
-~/models/
-~/raw_directory/
-~/split_directory/
-~/Dataset/
-~/inception_resnet_v2_2016_08_30.ckpt
-~/Training/
-80,20
-burger_king
+~/dataset
+~/tensorflow
