@@ -71,7 +71,7 @@ def get_lat_lon(exif_data):
 ################
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("imagePath",help="Path to image to extract geolocation")
+    parser.add_argument("--imagePath",help="Path to image to extract geolocation")
     args = parser.parse_args()
     image = Image.open(args.imagePath)
     exif_data = get_exif_data(image)

@@ -3,9 +3,9 @@ import tensorflow as tf
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument("imagePath",help="Path to image to predict")
-parser.add_argument("modelFullPath",help="Path the saved pb file")
-parser.add_argument("labelsFullPath",help="Path to the labels for the model")
+parser.add_argument("--imagePath",help="Path to image to predict")
+parser.add_argument("--modelFullPath",help="Path the saved pb file")
+parser.add_argument("--labelsFullPath",help="Path to the labels for the model")
 args = parser.parse_args()
 imagePath = args.imagePath
 modelFullPath = args.modelFullPath
