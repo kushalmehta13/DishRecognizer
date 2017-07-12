@@ -20,7 +20,8 @@ if [ -e "${pathToRestModel}${restaurant}/$topCat.pb" ]; then
 	echo "$dishPred" > dishPredictions.txt
 	mapfile -t top5Dish <<< "$dishPred"
 	topDish=$(echo "$top5Dish" | cut -f1 -d"(" | rev | cut -d" " -f2-| rev )
-	echo "$restaurant -> $topDish" > prediction.txt
+	echo "$restaurant,$topDish" > prediction.txt
 else
-	echo "$restaurant -> $topCat" > prediction.txt
+	echo "$restaurant,$topCat" > prediction.txt
 fi
+cat prediction.txt 

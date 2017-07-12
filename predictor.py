@@ -1,7 +1,10 @@
+import os
 import numpy as np
 import tensorflow as tf
 import argparse
 
+os.environ['CUDA_VISIBLE_DEVICES'] = ''
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 parser = argparse.ArgumentParser()
 parser.add_argument("--imagePath",help="Path to image to predict")
 parser.add_argument("--modelFullPath",help="Path the saved pb file")
