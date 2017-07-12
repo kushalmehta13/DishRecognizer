@@ -10,17 +10,12 @@ OuterLabel='Outer.txt'
 pathToOuterModel=$(find "${pathToRestModel}${restaurant}" -name  $OuterModel)
 pathToOuterLabel=$(find "${pathToRestModel}${restaurant}"  -name  $OuterLabel)
 CategoryPred=$(python predictor.py --imagePath=$pathToImage --modelFullPath="$pathToOuterModel" --labelsFullPath="$pathToOuterLabel" | tail -5)
-echo "The top 5 Categories are:"
-echo "$CategoryPred"
 echo "$CategoryPred" > categoryPredictions.txt
 mapfile -t top5Cat <<< "$CategoryPred"
 topCat=$(echo "$top5Cat" | cut -f1 -d"(" | rev | cut -d" " -f2-| rev )
-echo "${pathToRestModel}${restaurant}/$topCat.pb"
 if [ -e "${pathToRestModel}${restaurant}/$topCat.pb" ]; then
 	pathToInnerModel=$(find "${pathToRestModel}${restaurant}" -name "$topCat.pb")
 	pathToInnerLabel=$(find "${pathToRestModel}${restaurant}" -name "$topCat.txt")
-	echo "$pathToInnerModel"
-	echo "$pathToInnerLabel"
 	dishPred=$(python predictor.py --imagePath=$pathToImage --modelFullPath="$pathToInnerModel" --labelsFullPath="$pathToInnerLabel" | tail -5)
 	echo "$dishPred" > dishPredictions.txt
 	mapfile -t top5Dish <<< "$dishPred"
