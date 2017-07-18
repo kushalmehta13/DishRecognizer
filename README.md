@@ -61,10 +61,10 @@ We see that in the dataset the folder burger has subfolders defining each indivi
 
 NOTE: The creation of models involves a cleaning up of the folder names as they can produce bugs while folder traversal. `sanitize.py` removes all special characters in a folder name and retains all the spaces. Doing so modifies the folder name of the ORIGINAL dataset.  The next step is to predict using the .pb and .txt files generated.
 
-##Prediction
+## Part 2: Prediction
 On clicking a picture of a dish, the trained model will predict what the exact dish is and the restaurant that made the dish.
 
-##Getting started
+## Getting started
 
 Extract the Prediction folder from the tar file after cloning the DishRecognizer repository to your working directory.
 
