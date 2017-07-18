@@ -14,41 +14,44 @@ working_directory=$(pwd)
 # This is a utility function which creates a directory if it doesn't exist already
 function create_if_not_exists {
     if [ ! -d "$1" ]; then
-        mkdir $1
+        mkdir "$1"
     fi 
 }
 
 # This is a utility function which removes a directory if it exists
 function remove_if_exists {
-    if [ -d $1 ]; then
-        rm -rf $1
+    if [ -d "$1" ]; then
+        rm -rf "$1"
     fi
 }
 
 # This is a utility function which deletes a directory and creates it again - useful for cleanup purposes
 function remove_and_create {
-    remove_if_exists $1
-    mkdir $1
+    remove_if_exists "$1"
+    mkdir "$1"
 }
 
 # Read the user input where the categorized data resides as well as the tensorflow github directory
-read -p "Enter the directory for the dataset[Example:~/dataset]" dataset
-read -p "Enter the path for tensorflow[Example:~/tensorflow]" tensorflow
+read -e -p"Enter the directory for the dataset[Example:~/dataset]" dataset
+read -e -p"Enter the path for tensorflow[Example:~/tensorflow]" tensorflow
+
+Output_graphs=`basename "${dataset}"`
+echo $Output_graphs
 
 # Sanitize the input to account for ~ in the path
 dataset=`${PYTHON_BIN_PATH} -c "import os; print(os.path.realpath(os.path.expanduser('${dataset}')))"`
 tensorflow=`${PYTHON_BIN_PATH} -c "import os; print(os.path.realpath(os.path.expanduser('${tensorflow}')))"`
 
 # Create direcotories for the output graphs and a temporary directory
-remove_and_create Output_graphs
+remove_and_create "$Output_graphs"
 remove_and_create temp
 
 # Sanitize the data
-python sanitize.py $dataset
+python sanitize.py "$dataset"
 
 # Create the outer model first 
 # Outer model refers to the broader classifier which will classify an image into one of the broad categories like burger, taco, burrito etc.
-cd $dataset
+cd "$dataset"
 for d in */ ; do
     subdircount=`find "${d}" -maxdepth 1 -type d | wc -l`
     echo "$d"
@@ -66,7 +69,7 @@ for d in */ ; do
 done
 
 # Change to the tensorflow directory
-cd $tensorflow
+cd "$tensorflow"
 
 # Build the retrainer first
 # This is just the first time step. You can comment this out after one run
@@ -74,12 +77,12 @@ cd $tensorflow
 
 # Train the model
 # The trained model is stored as Outer.pb and the labels file is Outer.txt
-bazel-bin/tensorflow/examples/image_retraining/retrain --image_dir "$working_directory/temp" --output_graph "$working_directory/Output_graphs/Outer.pb" --output_labels "$working_directory/Output_graphs/Outer.txt"
+bazel-bin/tensorflow/examples/image_retraining/retrain --image_dir "$working_directory/temp" --output_graph "$working_directory/$Output_graphs/Outer.pb" --output_labels "$working_directory/$Output_graphs/Outer.txt" 
 
 # Now we proceed to constructing the sub models i.e models for every sub category so we know which exact item in that sub category it is e.g 
 # if its determined as a burger by the outer model, the sub model will determine which exact burger it is
 # Every sub model is generated with the same name as that of the enclosing folder i.e burger.pb and burger.txt(for the labels)
-cd $dataset
+cd "$dataset"
 for d in */ ; do
     subdircount=`find "${d}" -maxdepth 1 -type d | wc -l`
     if [ $subdircount -eq 1 ]
@@ -89,6 +92,6 @@ for d in */ ; do
         echo "${d///}"
         remove_and_create "$working_directory/temp"
         cp -r "$d." "$working_directory/temp/"
-        $tensorflow/bazel-bin/tensorflow/examples/image_retraining/retrain --image_dir "$working_directory/temp" --output_graph "$working_directory/Output_graphs/${d///}.pb" --output_labels "$working_directory/Output_graphs/${d///}.txt"
+        $tensorflow/bazel-bin/tensorflow/examples/image_retraining/retrain --image_dir "$working_directory/temp" --output_graph "$working_directory/$Output_graphs/${d///}.pb" --output_labels "$working_directory/$Output_graphs/${d///}.txt" 
     fi
 done
