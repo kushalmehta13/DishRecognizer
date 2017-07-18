@@ -1,8 +1,14 @@
+'''
+Takes an image as input and returns the restaurant in which the image was clicked in as output.
+NOTE: Input image must be geotagged.
+'''
+
 import sys
 import subprocess
 import argparse
 from PIL import Image
 from PIL.ExifTags import TAGS, GPSTAGS
+
 
 def get_exif_data(image):
     """Returns a dictionary from the exif data of an PIL Image item. Also converts the GPS Tags"""
@@ -23,11 +29,13 @@ def get_exif_data(image):
 
     return exif_data
 
+
 def _get_if_exist(data, key):
     if key in data:
         return data[key]
 
     return None
+
 
 def _convert_to_degress(value):
     """Helper function to convert the GPS coordinates stored in the EXIF to degress in float format"""
@@ -44,6 +52,7 @@ def _convert_to_degress(value):
     s = float(s0) / float(s1)
 
     return d + (m / 60.0) + (s / 3600.0)
+
 
 def get_lat_lon(exif_data):
     """Returns the latitude and longitude, if available, from the provided exif_data (obtained through get_exif_data above)"""
@@ -66,14 +75,16 @@ def get_lat_lon(exif_data):
             if gps_longitude_ref != "E":
                 lon = 0 - lon
     return float("{0:.5f}".format(lat)), float("{0:.5f}".format(lon))
-################
-# Example ######
-################
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--imagePath",help="Path to image to extract geolocation")
+    '''Expects an absolute path of an image. '''
+    parser.add_argument(
+        "--imagePath", help="Path to image to extract geolocation")
     args = parser.parse_args()
     image = Image.open(args.imagePath)
     exif_data = get_exif_data(image)
-    s1 = subprocess.check_output([sys.executable, "restaurantSelector.py", str(get_lat_lon(exif_data))])
+    s1 = subprocess.check_output(
+        [sys.executable, "restaurantSelector.py", str(get_lat_lon(exif_data))])
     print(s1)
