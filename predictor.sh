@@ -74,8 +74,9 @@ else
 	#fall under generic categories. This can also be used as a fallback model.
 
 	#remove dishPredictions.txt since it contains dishes from the previous predictions.
+	if [ -e "dishPredictions.txt" ]; then
 	rm dishPredictions.txt
-
+	fi	
 	#Populate the final prediction into prediction.txt
 	echo "$restaurant,$topCat" > prediction.txt
 fi
