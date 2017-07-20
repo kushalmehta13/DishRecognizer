@@ -74,9 +74,7 @@ def get_lat_lon(exif_data):
             lon = _convert_to_degress(gps_longitude)
             if gps_longitude_ref != "E":
                 lon = 0 - lon
-    lat = 33.6511432
-    lon = -117.8272442
-    return float("{0:.5f}".format(lat)), float("{0:.5f}".format(lon))
+    return float("{0:.5f}".format(33.650321)), float("{0:.5f}".format(-117.838109))
 
 
 if __name__ == "__main__":

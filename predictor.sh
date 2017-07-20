@@ -76,7 +76,8 @@ else
 	#remove dishPredictions.txt since it contains dishes from the previous predictions.
 	if [ -e "dishPredictions.txt" ]; then
 	rm dishPredictions.txt
-	fi	
+	fi
 	#Populate the final prediction into prediction.txt
-	echo "$restaurant,$topCat" > prediction.txt
+	echo "$restaurant,$topCat"
+	#echo "$restaurant,$topCat" > prediction.txt
 fi
