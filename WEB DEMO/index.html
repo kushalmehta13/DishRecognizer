@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>What's for lunch</title>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js" charset="utf-8"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" charset="utf-8"></script>
+    <script src="http://localhost:35729/livereload.js" charset="utf-8"></script>
+    <script src="index.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="index.css">
+  </head>
+  <body>
+    <!-- <div id="imgDiv">
+      <img src="https://maxcdn.icons8.com/Share/icon/Arrows//down_filled1600.png" id="down" height="20">
+    </div> -->
+    <div class="container-fluid">
+      <div class="row" id="imageTeam">
+        <div class="col-md-6" id="image">
+          <img src="https://i.redd.it/ounq1mw5kdxy.gif" alt="" width="700" height="1000" class="img-responsive center-block">
+        </div>
+        <div class="col-md-6">
+          <canvas id="predictions" height="350"></canvas>
+        </div>
+      </div>
+      <hr>
+      <div class="row" id="flavorTeam">
+        <div class="col-md-6">
+          <canvas id="flavor" height="350"></canvas>
+        </div>
+        <div class="col-md-6">
+          <div class="table-responsive">
+            <table class="table align-middle">
+              <thead>
+                <tr>
+                  <th>Dish name</th>
+                  <th>Sweet</th>
+                  <th>Rich</th>
+                  <th>Salt</th>
+                  <th>Umami</th>
+                  <th>Bitter</th>
+                  <th>Sour</th>
+                </tr>
+              </thead>
+              <tbody>
+                <td id="dishName">klsdfoisnhodifioshidofhoishdoighoisdf </td>
+                <td id="sweet">3</td>
+                <td id="Rich">4</td>
+                <td id="Salt">7</td>
+                <td id="Umami">10</td>
+                <td id="Bitter">10</td>
+                <td id="Sour">3</td>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row" id="userTeam">
+        <div class="col-md-6">
+          <canvas id="userScore" height="350"></canvas>
+        </div>
+        <div class="col-md-6">
+          <canvas id="userFlav" width="300" height="300"></canvas>
+        </div>
+      </div>
+      <hr>
+      <div class="row" id="userTeamPart2">
+        <div class="col-md-4" id="foodTagScoreTable">
+          <center>
+            <span style="font-size:20px">User Food Tag Score</span>
+          </center>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Dish Name</th>
+                  <th>New Score</th>
+                  <th>Old Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                <td id="dName"></td>
+                <td id="nScore"></td>
+                <td id="oScore"></td>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-4" id="cuisine">
+          <center>
+            <span style="font-size:20px">Cuisine Score</span>
+          </center>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Cuisine Name</th>
+                  <th>New Cuisine</th>
+                  <th>Old Cuisine</th>
+                </tr>
+              </thead>
+              <tbody>
+                <td id="dName"></td>
+                <td id="nCui"></td>
+                <td id="oCui"></td>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-4">
+        <center>
+          <span style="font-size:20px">Flavor Profile</span>
+        </center>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Flavor</th>
+                  <th>Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                <td id="fl"></td>
+                <td id="sc"></td>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
