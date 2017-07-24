@@ -61,7 +61,8 @@ if [ -e "${pathToRestModel}${restaurant}/$topCat.pb" ]; then
 
 	#Predict the exact dish and store top 5 results in dishPredictions.txt
 	dishPred=$(python predictor.py --imagePath=$pathToImage --modelFullPath="$pathToInnerModel" --labelsFullPath="$pathToInnerLabel" | tail -5)
-	echo "$dishPred" > dishPredictions.txt
+	dishPredClean=$(echo "$dishPred" | cut -f1 -d"(" | rev | cut -d" " -f2-| rev )
+	echo "$dishPredClean" > dishPredictions.txt
 
 	#Top 5 dish predictions in array form. Each element of the array is a dish prediction. Length of the array is 5
 	mapfile -t top5Dish <<< "$dishPred"
