@@ -44,8 +44,7 @@ pathToOuterLabel=$(find "${pathToRestModel}${restaurant}"  -name  $OuterLabel)
 
 #Predict the generic food category in which the image resides in. The result is stored in categoryPredictions.txt
 CategoryPred=$(python predictor.py --imagePath=$pathToImage --modelFullPath="$pathToOuterModel" --labelsFullPath="$pathToOuterLabel" | tail -5)
-catPredClean=$(echo "$dishPred" | cut -f1 -d"(" | rev | cut -d" " -f2-| rev )
-echo "$catPredClean" > categoryPredictions.txt
+echo "$CategoryPred" > categoryPredictions.txt
 
 
 #Top 5 category predictions in array form. Each element of the array is a prediction. Length of array is 5
