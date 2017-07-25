@@ -1,6 +1,6 @@
-var inView = false;
-var dLabels, dPred;
-var fLabels,fValue;
+var inViewF = false;
+var inViewU = false;
+var inViewI = false;
 $(document).ready(function(){
   loadBar();
   $(function() {
@@ -17,8 +17,6 @@ $(document).ready(function(){
 });
 });
 function loadBar(dishLabels,dishPred){
-  dLabels = dishLabels;
-  dPred = dishPred;
   var pred = document.getElementById('predictions').getContext('2d');
   var predChart = new Chart(pred, {
       // The type of chart we want to create
@@ -26,7 +24,7 @@ function loadBar(dishLabels,dishPred){
       responsive: true,
       // The data for our dataset
       data: {
-          labels: dLabels,
+          labels: dishLabels,
           datasets: [{
               label: "Confidence Value",
               borderColor: 'rgb(255, 99, 132)',
@@ -34,7 +32,7 @@ function loadBar(dishLabels,dishPred){
               pointBackgroundColor: 'rgb(255,99,132)',
               pointBorderColor: 'rgb(255,255,255)',
               pointRadius: 5,
-              data: dPred,
+              data: dishPred,
               backgroundColor:['rgba(3,169,244,0.2)','rgb(3,169,244)','rgb(3,169,244)','rgb(3,169,244)','rgb(3,169,244)']
           }]
       },
@@ -190,14 +188,12 @@ function loadGraphs(){
 }
 
 function loadFlavors(flavorLabels,flavorValue){
-  fLabels = flavorLabels;
-  fValue = flavorValue;
   var flavor1 = document.getElementById('flavor').getContext('2d');
   var flavChart = new Chart(flavor1 ,{
     type: 'radar',
     responsive: true,
     data: {
-      labels: fLabels,
+      labels: flavorLabels,
       datasets: [{
       label: "Flavor Intensity",
       borderColor: 'rgb(3,169,244)',
@@ -205,7 +201,7 @@ function loadFlavors(flavorLabels,flavorValue){
       pointBackgroundColor: 'rgb(3,169,244)',
       pointBorderColor: 'rgb(255,255,255)',
       pointRadius: 5,
-      data: fValue
+      data: flavorValue
     }]
     },
     options: {
@@ -249,62 +245,20 @@ function loadFlavors(flavorLabels,flavorValue){
 //   }
 // }
 
-$(window).scroll(function() {
-    if (isScrolledIntoView('#imageTeam')){
-      loadBar(dLabels,dPred);
-    }
-    if (isScrolledIntoView('#userTeam')){
-      loadGraphs();
-    }
-    if (isScrolledIntoView('#flavorTeam')) {
-        if (inView) { return; }
-        inView = true;
-        loadFlavors(fLabels,fValue);
-    //     var flavor1 = document.getElementById('flavor').getContext('2d');
-    //     var flavChart = new Chart(flavor1 ,{
-    //       type: 'radar',
-    //       responsive: true,
-    //       data: {
-    //         labels: ["Sweet" , "Rich" , "Salt" , "Umami" , "Bitter" , "Sour" ],
-    //         datasets: [{
-    //         label: "Flavor Intensity",
-    //         borderColor: 'rgb(3,169,244)',
-    //         backgroundColor: 'rgba(3,169,244,0.2)',
-    //         pointBackgroundColor: 'rgb(3,169,244)',
-    //         pointBorderColor: 'rgb(255,255,255)',
-    //         pointRadius: 5,
-    //         data: [2,4,2,3,5,4]
-    //       }]
-    //       },
-    //       options: {
-    //         scales:{
-    //           fontSize: 20
-    //         },
-    //         scale: {
-    //           ticks:{
-    //             min: 0,
-    //             max: 10,
-    //             fontSize: 17
-    //           },
-    //           pointLabels:{
-    //             fontSize: 20
-    //           },
-    //         },
-    //         legend: {
-    //           labels:{
-    //             fontSize: 17,
-    //             usePointStyle: true
-    //           }
-    //         },
-    //         title:{
-    //           display: true,
-    //           text: 'Flavor Chart',
-    //           fontSize: 30
-    //         }
-    //       }
-    //     });
-    //   }
-    //    else {
-    //     inView = false;
-    }
-  });
+// $(window).scroll(function() {
+//     if (isScrolledIntoView('#imageTeam')){
+//       if (inViewI){ return ;}
+//       inViewI = true;
+//       loadBar(dLabels,dPred);
+//     }
+//     if (isScrolledIntoView('#userTeam')){
+//       if (inViewU){return ;}
+//       inViewU = true;
+//       loadGraphs();
+//     }
+//     if (isScrolledIntoView('#flavorTeam')) {
+//         if (inViewF) { return; }
+//         inViewF = true;
+//         loadFlavors(fLabels,fValue);
+//     }
+//   });

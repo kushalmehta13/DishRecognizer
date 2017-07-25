@@ -39,4 +39,21 @@ $(document).ready(function(){
     }
     loadFlavors(flavorLabels,flavorValue);
   });
+  $(window).scroll(function() {
+      if (isScrolledIntoView('#imageTeam')){
+        if (inViewI){ return ;}
+        inViewI = true;
+        loadBar(dishLabels,dishPred);
+      }
+      if (isScrolledIntoView('#userTeam')){
+        if (inViewU){return ;}
+        inViewU = true;
+        loadGraphs();
+      }
+      if (isScrolledIntoView('#flavorTeam')) {
+          if (inViewF) { return; }
+          inViewF = true;
+          loadFlavors(flavorLabels,flavorValue);
+      }
+    });
 });
