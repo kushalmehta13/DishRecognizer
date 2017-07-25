@@ -1,6 +1,10 @@
 
 $(document).ready(function(){
   var t1 = new EventSource("/stream");
+  var dishLabels = [];
+  var dishPred = [];
+  var flavorLabels = [];
+  var flavorValue = []
   t1.addEventListener("team1",function(e){
     var predictions = e.data;
     var predObj = JSON.parse(predictions);
@@ -17,11 +21,21 @@ $(document).ready(function(){
     foodImage.className="img-responsive center-block";
     foodImage.id="foodImage";
     parentImage.appendChild(foodImage);
+
+
+    p = document.getElementById('predictions');
+    parentDiv = p.parentNode;
+    parentDiv.removeChild(p);
+    p=document.createElement("canvas");
+    p.height = "350";
+    p.id = 'predictions';
+    parentDiv.appendChild(p);
+
+
+
     console.log(image+"?time="+d.getTime());
 
     var predInner = predObj.prediction;
-    var dishLabels = [];
-    var dishPred = [];
     for (var dish in predInner){
       dishLabels.push(dish);
       dishPred.push(parseFloat(predInner[dish])*100);
@@ -31,12 +45,20 @@ $(document).ready(function(){
   t1.addEventListener("team3",function(e){
     var flavor = e.data;
     var flavorObj = JSON.parse(flavor);
-    flavorLabels = [];
-    flavorValue = []
     for (var f in flavorObj){
       flavorLabels.push(f);
       flavorValue.push(parseFloat(flavorValue[f]));
     }
+
+    f = document.getElementById('predictions');
+    parentDiv = f.parentNode;
+    parentDiv.removeChild(f);
+    f=document.createElement("canvas");
+    f.height = "350";
+    f.id = 'flavor';
+    parentDiv.appendChild(f);
+
+
     loadFlavors(flavorLabels,flavorValue);
   });
   $(window).scroll(function() {
