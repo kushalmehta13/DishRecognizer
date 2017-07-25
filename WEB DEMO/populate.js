@@ -1,10 +1,24 @@
-$document.ready(function(){
+
+$(document).ready(function(){
   var t1 = new EventSource("/stream");
   t1.addEventListener("team1",function(e){
     var predictions = e.data;
     var predObj = JSON.parse(predictions);
     var image = predObj.image;
-    document.getElementById('foodImage').src = image;
+    d = new Date();
+
+    foodImage = document.getElementById('foodImage');
+    parentImage = foodImage.parentNode;
+    parentImage.removeChild(foodImage);
+    foodImage=document.createElement("img");
+    foodImage.src = image+"?time="+d.getTime();
+    foodImage.height = "1000"
+    foodImage.width = "700"
+    foodImage.className="img-responsive center-block";
+    foodImage.id="foodImage";
+    parentImage.appendChild(foodImage);
+    console.log(image+"?time="+d.getTime());
+
     var predInner = predObj.prediction;
     var dishLabels = [];
     var dishPred = [];
