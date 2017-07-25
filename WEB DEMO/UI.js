@@ -1,7 +1,10 @@
-var inViewF = false;
-var inViewU = false;
-var inViewI = false;
+var inViewF;
+var inViewU;
+var inViewI;
 $(document).ready(function(){
+  inViewF = false;
+  inViewU = false;
+  inViewI = false;
   loadBar();
   $(function() {
     $("#imgDown").on("click", function() {
@@ -72,12 +75,10 @@ function loadBar(dishLabels,dishPred){
 {
     var docViewTop = $(window).scrollTop();
     var docViewBottom = docViewTop + $(window).height();
-    console.log("doc",docViewTop,docViewBottom);
 
 
     var elemTop = $(elem).offset().top;
     var elemBottom = elemTop + $(elem).height();
-    console.log("elem",docViewTop,docViewBottom);
 
     return ((elemTop <= docViewBottom) && (elemBottom >= docViewTop));
 }
@@ -232,33 +233,3 @@ function loadFlavors(flavorLabels,flavorValue){
     }
   });
 }
-
-// function checkAndAnimateGraph(){
-//   if (isScrolledIntoView('#imageTeam')){
-//     loadBar();
-//   }
-//   if (isScrolledIntoView('#userTeam')){
-//     loadGraphs();
-//   }
-//   if (isScrolledIntoView('#flavorTeam')){
-//     loadFlavors();
-//   }
-// }
-
-// $(window).scroll(function() {
-//     if (isScrolledIntoView('#imageTeam')){
-//       if (inViewI){ return ;}
-//       inViewI = true;
-//       loadBar(dLabels,dPred);
-//     }
-//     if (isScrolledIntoView('#userTeam')){
-//       if (inViewU){return ;}
-//       inViewU = true;
-//       loadGraphs();
-//     }
-//     if (isScrolledIntoView('#flavorTeam')) {
-//         if (inViewF) { return; }
-//         inViewF = true;
-//         loadFlavors(fLabels,fValue);
-//     }
-//   });

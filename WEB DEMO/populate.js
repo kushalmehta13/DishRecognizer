@@ -47,12 +47,6 @@ $(document).ready(function(){
   t1.addEventListener("team3",function(e){
     flavorLabels = [];
     flavorValue = [];
-    var flavor = e.data;
-    var flavorObj = JSON.parse(flavor);
-    for (var f in flavorObj){
-      flavorLabels.push(f);
-      flavorValue.push(parseFloat(flavorValue[f]));
-    }
 
     f = document.getElementById('flavor');
     parentDivF = f.parentNode;
@@ -61,6 +55,17 @@ $(document).ready(function(){
     f.height = "350";
     f.id = 'flavor';
     parentDivF.appendChild(f);
+
+
+
+    var flavor = e.data;
+    var flavorObj = JSON.parse(flavor);
+    for (var f in flavorObj){
+      flavorLabels.push(f);
+      flavorValue.push(parseFloat(flavorValue[f]));
+    }
+
+
 
 
     loadFlavors(flavorLabels,flavorValue);
