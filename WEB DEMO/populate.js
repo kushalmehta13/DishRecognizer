@@ -50,7 +50,7 @@ $(document).ready(function(){
       flavorValue.push(parseFloat(flavorValue[f]));
     }
 
-    f = document.getElementById('predictions');
+    f = document.getElementById('flavor');
     parentDiv = f.parentNode;
     parentDiv.removeChild(f);
     f=document.createElement("canvas");
