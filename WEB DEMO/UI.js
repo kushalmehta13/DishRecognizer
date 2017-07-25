@@ -1,13 +1,21 @@
 var inView = false;
 
-$(document).ready(loadBar);
-function loadBar(){
-  // $('#imgDiv').click(function(){
-  //   var vheight = $(window).height();
-  //   console.log(vheight);
-  // $('html, body').animate({scrollTop: (Math.floor($(window).scrollTop() / vheight)+1) * vheight
-  // }, 500);
-  //  });
+$(document).ready(function(){
+  loadBar();
+  $(function() {
+    $("#imgDown").on("click", function() {
+        $("body").animate({"scrollTop": window.scrollY+1100},0.1);
+        return false;
+    });
+});
+  $(function() {
+    $("#imgUp").on("click", function() {
+        $("body").animate({"scrollTop": window.scrollY-1100},0.1);
+        return false;
+    });
+});
+});
+function loadBar(dishLabels,dishPred){
   var pred = document.getElementById('predictions').getContext('2d');
   var predChart = new Chart(pred, {
       // The type of chart we want to create
@@ -15,7 +23,7 @@ function loadBar(){
       responsive: true,
       // The data for our dataset
       data: {
-          labels: ["January", "February", "March", "April", "May", "June", "July"],
+          labels: dishLabels,
           datasets: [{
               label: "Confidence Value",
               borderColor: 'rgb(255, 99, 132)',
@@ -23,8 +31,8 @@ function loadBar(){
               pointBackgroundColor: 'rgb(255,99,132)',
               pointBorderColor: 'rgb(255,255,255)',
               pointRadius: 5,
-              data: [0, 10, 5, 2, 20, 30, 45],
-              backgroundColor:['rgba(3,169,244)','rgb(3,169,244)','rgb(3,169,244)','rgb(3,169,244)','rgb(3,169,244)']
+              data: dishPred,
+              backgroundColor:['rgba(3,169,244,0.2)','rgb(3,169,244)','rgb(3,169,244)','rgb(3,169,244)','rgb(3,169,244)']
           }]
       },
 
@@ -33,6 +41,8 @@ function loadBar(){
         scales: {
           yAxes: [{
             ticks: {
+              min: 0,
+              max: 100,
               fontSize: 15
             }
           }],
@@ -61,9 +71,12 @@ function loadBar(){
 {
     var docViewTop = $(window).scrollTop();
     var docViewBottom = docViewTop + $(window).height();
+    console.log("doc",docViewTop,docViewBottom);
+
 
     var elemTop = $(elem).offset().top;
     var elemBottom = elemTop + $(elem).height();
+    console.log("elem",docViewTop,docViewBottom);
 
     return ((elemTop <= docViewBottom) && (elemBottom >= docViewTop));
 }
@@ -172,6 +185,64 @@ function loadGraphs(){
   loadG2();
 //  loadG3();
 }
+
+function loadFlavors(){
+  var flavor1 = document.getElementById('flavor').getContext('2d');
+  var flavChart = new Chart(flavor1 ,{
+    type: 'radar',
+    responsive: true,
+    data: {
+      labels: ["Sweet" , "Rich" , "Salt" , "Umami" , "Bitter" , "Sour" ],
+      datasets: [{
+      label: "Flavor Intensity",
+      borderColor: 'rgb(3,169,244)',
+      backgroundColor: 'rgba(3,169,244,0.2)',
+      pointBackgroundColor: 'rgb(3,169,244)',
+      pointBorderColor: 'rgb(255,255,255)',
+      pointRadius: 5,
+      data: [2,4,2,3,5,4]
+    }]
+    },
+    options: {
+      scales:{
+        fontSize: 20
+      },
+      scale: {
+        ticks:{
+          min: 0,
+          max: 10,
+          fontSize: 17
+        },
+        pointLabels:{
+          fontSize: 20
+        },
+      },
+      legend: {
+        labels:{
+          fontSize: 17,
+          usePointStyle: true
+        }
+      },
+      title:{
+        display: true,
+        text: 'Flavor Chart',
+        fontSize: 30
+      }
+    }
+  });
+}
+
+// function checkAndAnimateGraph(){
+//   if (isScrolledIntoView('#imageTeam')){
+//     loadBar();
+//   }
+//   if (isScrolledIntoView('#userTeam')){
+//     loadGraphs();
+//   }
+//   if (isScrolledIntoView('#flavorTeam')){
+//     loadFlavors();
+//   }
+// }
 
 $(window).scroll(function() {
     if (isScrolledIntoView('#imageTeam')){

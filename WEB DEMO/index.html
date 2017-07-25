@@ -7,18 +7,23 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js" charset="utf-8"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" charset="utf-8"></script>
     <script src="http://localhost:35729/livereload.js" charset="utf-8"></script>
-    <script src="index.js" charset="utf-8"></script>
+    <script src="UI.js" charset="utf-8"></script>
+    <script src="populate.js" charset="utf-8"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="index.css">
+
   </head>
   <body>
-    <!-- <div id="imgDiv">
+    <div id="imgDown">
       <img src="https://maxcdn.icons8.com/Share/icon/Arrows//down_filled1600.png" id="down" height="20">
-    </div> -->
+    </div>
+    <div id="imgUp">
+      <img src="https://maxcdn.icons8.com/Share/icon/Arrows//down_filled1600.png" id="up" height="20">
+    </div>
     <div class="container-fluid">
       <div class="row" id="imageTeam">
         <div class="col-md-6" id="image">
-          <img src="https://i.redd.it/ounq1mw5kdxy.gif" alt="" width="700" height="1000" class="img-responsive center-block">
+          <img src="https://i.redd.it/ounq1mw5kdxy.gif" alt="" width="700" height="1000" class="img-responsive center-block" id="foodImage">
         </div>
         <div class="col-md-6">
           <canvas id="predictions" height="350"></canvas>

@@ -11,7 +11,18 @@
 .table th,td{
   text-align: center;
 }
-#imgDiv{
+#imgDown{
   position: fixed;
   z-index: 10;
+}
+#imgUp{
+  position: fixed;
+  z-index: 10;
+  bottom: 0;
+  vertical-align: bottom;
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
 }
