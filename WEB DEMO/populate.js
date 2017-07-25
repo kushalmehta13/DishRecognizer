@@ -4,8 +4,10 @@ $(document).ready(function(){
   var dishLabels = [];
   var dishPred = [];
   var flavorLabels = [];
-  var flavorValue = []
+  var flavorValue = [];
   t1.addEventListener("team1",function(e){
+    dishLabels = [];
+    dishPred = [];
     var predictions = e.data;
     var predObj = JSON.parse(predictions);
     var image = predObj.image;
@@ -43,6 +45,8 @@ $(document).ready(function(){
     loadBar(dishLabels,dishPred);
   });
   t1.addEventListener("team3",function(e){
+    flavorLabels = [];
+    flavorValue = [];
     var flavor = e.data;
     var flavorObj = JSON.parse(flavor);
     for (var f in flavorObj){
