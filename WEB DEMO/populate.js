@@ -27,5 +27,16 @@ $(document).ready(function(){
       dishPred.push(parseFloat(predInner[dish])*100);
     }
     loadBar(dishLabels,dishPred);
-  })
+  });
+  t1.addEventListener("team3",function(e){
+    var flavor = e.data;
+    var flavorObj = JSON.parse(flavor);
+    flavorLabels = [];
+    flavorValue = []
+    for (var f in flavorObj){
+      flavorLabels.push(f);
+      flavorValue.push(parseFloat(flavorValue[f]));
+    }
+    loadFlavors(flavorLabels,flavorValue);
+  });
 });
