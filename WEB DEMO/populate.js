@@ -51,12 +51,12 @@ $(document).ready(function(){
     }
 
     f = document.getElementById('flavor');
-    parentDiv = f.parentNode;
-    parentDiv.removeChild(f);
+    parentDivF = f.parentNode;
+    parentDivF.removeChild(f);
     f=document.createElement("canvas");
     f.height = "350";
     f.id = 'flavor';
-    parentDiv.appendChild(f);
+    parentDivF.appendChild(f);
 
 
     loadFlavors(flavorLabels,flavorValue);
