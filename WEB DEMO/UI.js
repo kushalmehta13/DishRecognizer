@@ -1,7 +1,11 @@
 var inViewF;
 var inViewU;
 var inViewI;
+var i;
+var s;
 $(document).ready(function(){
+  i = document.getElementById('spicy');
+  s = document.getElementById('spiceText');
   inViewF = false;
   inViewU = false;
   inViewI = false;
@@ -83,29 +87,29 @@ function loadBar(dishLabels,dishPred){
     return ((elemTop <= docViewBottom) && (elemBottom >= docViewTop));
 }
 
-function loadG1(){
+function loadG1(tNew,tOld,tNewVal,tOldVal){
     var scores = document.getElementById('userScore').getContext('2d');
     var scoreChart = new Chart(scores,{
       type: 'line',
       responsive: true,
       data: {
-        labels: ["A","B","C","D"],
+        labels: tNew,
         datasets: [{
           label: "User Score",
           borderColor: 'rgb(139,195,74)',
-          backgroundColor: 'rgba(139,195,74,0.2)',
+          backgroundColor: 'rgba(0,0,255,1)',
           pointBackgroundColor: 'rgb(139,195,74)',
           pointBorderColor: 'rgb(255,255,255)',
           pointRadius: 5,
-          data: [1,4,6,3]
+          data: tOldVal
         },{
-          label: "User Score 2",
+          label: "User Score new",
           borderColor: 'rgb(11,15,52)',
-          backgroundColor: 'rgba(11,15,52,0.2)',
+          backgroundColor: 'rgba(255,0,0,1)',
           pointBackgroundColor: 'rgb(11,15,52)',
           pointBorderColor: 'rgb(255,255,255)',
           pointRadius: 5,
-          data: [0,0,0,0]
+          data: tNewVal
         }]
       },
       options: {
@@ -136,13 +140,13 @@ function loadG1(){
     });
 }
 
-function loadG2(){
+function loadG2(userFlavorLabels,userFlavorValue){
   var scores = document.getElementById('userFlav').getContext('2d');
   var scoreChart = new Chart(scores,{
     type: 'radar',
     responsive: true,
     data: {
-      labels: ["Sweet" , "Rich" , "Salt" , "Umami" , "Bitter" , "Sour" ],
+      labels: userFlavorLabels,
       datasets: [{
       label: "Flavor Intensity",
       borderColor: 'rgb(3,169,244)',
@@ -150,7 +154,7 @@ function loadG2(){
       pointBackgroundColor: 'rgb(3,169,244)',
       pointBorderColor: 'rgb(255,255,255)',
       pointRadius: 5,
-      data: [2,4,2,3,5,4]
+      data: userFlavorValue
     }]
   },
   options: {
@@ -159,8 +163,8 @@ function loadG2(){
     },
     scale: {
       ticks:{
-        min: 0,
-        max: 10,
+        // min: 0,
+        // max: 10,
         fontSize: 17
       },
       pointLabels:{
@@ -182,13 +186,17 @@ function loadG2(){
   });
 }
 
-function loadGraphs(){
-  loadG1();
-  loadG2();
+function loadGraphs(cNew,cNewVal,cold,cOldVal,tNew,tNewVal,tOld,tOldVal,userFlavorLabels,userFlavorValue){
+  loadG1(tNew,tOld,tNewVal,tOldVal);
+  loadG2(userFlavorLabels,userFlavorValue);
 //  loadG3();
 }
 
-function loadFlavors(flavorLabels,flavorValue){
+function loadFlavors(spicy,flavorLabels,flavorValue){
+  if (spicy){
+    i.style.visibility='visible';
+    s.style.visibility='visible';
+  }
   var flavor1 = document.getElementById('flavor').getContext('2d');
   var flavChart = new Chart(flavor1 ,{
     type: 'radar',
@@ -211,8 +219,8 @@ function loadFlavors(flavorLabels,flavorValue){
       },
       scale: {
         ticks:{
-          min: 0,
-          max: 10,
+          // min: 0,
+          // max: 10,
           fontSize: 17
         },
         pointLabels:{

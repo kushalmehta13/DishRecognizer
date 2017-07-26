@@ -33,12 +33,11 @@
         <div class="col-md-6">
           <canvas id="flavor" height="350"></canvas>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" style="height: 100vh">
           <div class="table-responsive">
-            <table class="table align-middle">
+            <table class="table align-middle" id="flavorTable">
               <thead>
                 <tr>
-                  <th>Dish name</th>
                   <th>Sweet</th>
                   <th>Rich</th>
                   <th>Salt</th>
@@ -48,16 +47,17 @@
                 </tr>
               </thead>
               <tbody>
-                <td id="dishName">klsdfoisnhodifioshidofhoishdoighoisdf </td>
-                <td id="sweet">3</td>
-                <td id="Rich">4</td>
-                <td id="Salt">7</td>
-                <td id="Umami">10</td>
-                <td id="Bitter">10</td>
-                <td id="Sour">3</td>
+                <!--<td id="sweet"></td>
+                <td id="Rich"></td>
+                <td id="Salt"></td>
+                <td id="Umami"></td>
+                <td id="Bitter"></td>
+                <td id="Sour"></td>-->
               </tbody>
             </table>
           </div>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Chilli_pepper_4.svg/2000px-Chilli_pepper_4.svg.png" style="visibility: hidden" height="50" id="spicy">
+          <span id="spiceText"  style="font-size: 20px;visibility: hidden">This dish is spicy</span>
         </div>
       </div>
       <hr>

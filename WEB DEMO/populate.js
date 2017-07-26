@@ -5,6 +5,17 @@ $(document).ready(function(){
   var dishPred = [];
   var flavorLabels = [];
   var flavorValue = [];
+  var spicy = false;
+  var cNew = [];
+  var cNewVal = [];
+  var cOld = [];
+  var cOldVal = [];
+  var tNew = [];
+  var tNewVal = []
+  var tOld = [];
+  var tOldVal = [];
+  var userFlavorLabels = [];
+  var userFlavorValue = [];
   t1.addEventListener("team1",function(e){
     dishLabels = [];
     dishPred = [];
@@ -47,7 +58,14 @@ $(document).ready(function(){
   t1.addEventListener("team3",function(e){
     flavorLabels = [];
     flavorValue = [];
-
+    var table = document.getElementById("flavorTable");
+    var row = table.insertRow(-1);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+    var cell4 = row.insertCell(3);
+    var cell5 = row.insertCell(4);
+    var cell6 = row.insertCell(5);
     f = document.getElementById('flavor');
     parentDivF = f.parentNode;
     parentDivF.removeChild(f);
@@ -60,15 +78,88 @@ $(document).ready(function(){
 
     var flavor = e.data;
     var flavorObj = JSON.parse(flavor);
+    cell1.innerHTML = flavorObj.sweet;
+    cell2.innerHTML = flavorObj.rich;
+    cell3.innerHTML = flavorObj.salt;
+    cell4.innerHTML = flavorObj.umami;
+    cell5.innerHTML = flavorObj.bitter;
+    cell6.innerHTML = flavorObj.sour;
     for (var f in flavorObj){
-      flavorLabels.push(f);
-      flavorValue.push(parseFloat(flavorValue[f]));
+      if(f != "spicy")
+      {
+        flavorLabels.push(f);
+        flavorValue.push(parseFloat(flavorObj[f]));
+    }
+  }
+    spicy = flavorObj.spicy;
+    // spicy = 1;
+    loadFlavors(spicy,flavorLabels,flavorValue);
+  });
+  t1.addEventListener("team2",function(e){
+    cNew = [];
+    cNewVal = [];
+    cOld = [];
+    cOldVal = [];
+    tNew = [];
+    tNewVal = []
+    tOld = [];
+    tOldVal = [];
+    userFlavorLabels = [];
+    userFlavorValue = [];
+    f = document.getElementById('userFlav');
+    parentDivF = f.parentNode;
+    parentDivF.removeChild(f);
+    f=document.createElement("canvas");
+    f.height = "350";
+    f.id = 'userFlav';
+    parentDivF.appendChild(f);
+
+    b = document.getElementById('userScore');
+    parentDivB = b.parentNode;
+    parentDivB.removeChild(b);
+    b=document.createElement("canvas");
+    b.height = "350";
+    b.id = 'userScore';
+    parentDivB.appendChild(b);
+    var user = e.data;
+    var userObj = JSON.parse(user);
+    var cuisinenew = userObj.cuisinenew;
+    var tagsnew = userObj.tagsnew;
+    var cuisineold = userObj.cuisineold;
+    var tagsold = userObj.tagsold;
+    var uFlavor = userObj.flavor;
+    for (c in cuisinenew){
+      cNew.push(c);
+      cNewVal.push(cuisinenew[c]);
+    }
+    for (t in tagsnew){
+      tNew.push(t);
+      tNewVal.push(tagsnew[t]);
+    }
+    for (c in cuisineold){
+      cOld.push(c);
+      cOldVal.push(cuisineold[c]);
+    }
+    for (t in tagsold){
+      tOld.push(t);
+      tOldVal.push(tagsold[t]);
+    }
+    for (f in uFlavor){
+      if(f != "spicy"){
+      userFlavorLabels.push(f);
+      userFlavorValue.push(uFlavor[f]);
+      }
     }
 
+    loadGraphs(cNew,cNewVal,cOld,cOldVal,tNew,tNewVal,tOld,tOldVal,userFlavorLabels,userFlavorValue);
+    // console.log(cNew,cNewVal);
+    // console.log(cOld,cOldVal);
+    // console.log(tNew,tNewVal);
+    // console.log(tOld,tOldVal);
+    // console.log(userFlavorLabels,userFlavorValue);
 
 
 
-    loadFlavors(flavorLabels,flavorValue);
   });
   $(window).scroll(function() {
       if (isScrolledIntoView('#imageTeam')){
@@ -79,12 +170,12 @@ $(document).ready(function(){
       if (isScrolledIntoView('#userTeam')){
         if (inViewU){return ;}
         inViewU = true;
-        loadGraphs();
+        loadGraphs(cNew,cNewVal,cOld,cOldVal,tNew,tNewVal,tOld,tOldVal,userFlavorLabels,userFlavorValue);
       }
       if (isScrolledIntoView('#flavorTeam')) {
           if (inViewF) { return; }
           inViewF = true;
-          loadFlavors(flavorLabels,flavorValue);
+          loadFlavors(spicy,flavorLabels,flavorValue);
       }
     });
 });
