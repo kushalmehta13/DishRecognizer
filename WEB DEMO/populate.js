@@ -96,6 +96,16 @@ $(document).ready(function(){
     loadFlavors(spicy,flavorLabels,flavorValue);
   });
   t1.addEventListener("team2",function(e){
+
+    userFoodTagTbody = document.getElementById("userFoodTagTbody");
+    userFoodTagTbody.innerHTML = '';
+
+    userCuisineTbody = document.getElementById("userCuisineTbody");
+    userCuisineTbody.innerHTML = '';
+
+    userFlavorTbody = document.getElementById("userFlavorTbody");
+    userFlavorTbody.innerHTML = '';
+
     cNew = [];
     cNewVal = [];
     cOld = [];
@@ -128,6 +138,15 @@ $(document).ready(function(){
     var cuisineold = userObj.cuisineold;
     var tagsold = userObj.tagsold;
     var uFlavor = userObj.flavor;
+
+    var o = document.getElementById('overlap');
+    parentDivO = o.parentNode;
+    parentDivO.removeChild(o);
+    o=document.createElement("canvas");
+    o.height = "350";
+    o.id = 'overlap';
+    parentDivO.appendChild(o);
+
     for (c in cuisinenew){
       cNew.push(c);
       cNewVal.push(cuisinenew[c]);
@@ -139,28 +158,75 @@ $(document).ready(function(){
     for (c in cuisineold){
       cOld.push(c);
       cOldVal.push(cuisineold[c]);
+
+      temp_tr = document.createElement("tr");
+      temp_td_1 = document.createElement("td");
+      temp_td_2 = document.createElement("td");
+      temp_td_3 = document.createElement("td");
+      temp_td_1.innerHTML = c;
+      temp_td_2.innerHTML = cuisineold[c];
+      temp_td_3.innerHTML = cuisinenew[c];
+      temp_tr.appendChild(temp_td_1);
+      temp_tr.appendChild(temp_td_2);
+      temp_tr.appendChild(temp_td_3);
+      if ( cuisinenew[c] != cuisineold[c]){
+        temp_tr.style.backgroundColor = "rgba(3,169,244,0.2)";
+      }
+      userCuisineTbody.appendChild(temp_tr);
     }
     for (t in tagsold){
       tOld.push(t);
       tOldVal.push(tagsold[t]);
+
+      temp_tr = document.createElement("tr");
+      temp_td_1 = document.createElement("td");
+      temp_td_2 = document.createElement("td");
+      temp_td_3 = document.createElement("td");
+      temp_td_1.innerHTML = t;
+      temp_td_2.innerHTML = tagsold[t];
+      temp_td_3.innerHTML = tagsnew[t];
+      temp_tr.appendChild(temp_td_1);
+      temp_tr.appendChild(temp_td_2);
+      temp_tr.appendChild(temp_td_3);
+      if ( tagsnew[t] != tagsold[t]){
+        temp_tr.style.backgroundColor = "rgba(3,169,244,0.2)";
+      }
+      userFoodTagTbody.appendChild(temp_tr);
     }
     for (f in uFlavor){
       if(f != "spicy"){
       userFlavorLabels.push(f);
       userFlavorValue.push(uFlavor[f]);
-      }
+    }
+    
+      temp_tr = document.createElement("tr");
+      temp_td_1 = document.createElement("td");
+      temp_td_2 = document.createElement("td");
+      temp_td_1.innerHTML = f;
+      temp_td_2.innerHTML = uFlavor[f];
+      temp_tr.appendChild(temp_td_1);
+      temp_tr.appendChild(temp_td_2);
+      userFlavorTbody.appendChild(temp_tr);
     }
 
     loadGraphs(cNew,cNewVal,cOld,cOldVal,tNew,tNewVal,tOld,tOldVal,userFlavorLabels,userFlavorValue);
+    loadFlavorsOverlap(flavorLabels,flavorValue,userFlavorValue);
     // console.log(cNew,cNewVal);
     // console.log(cOld,cOldVal);
     // console.log(tNew,tNewVal);
     // console.log(tOld,tOldVal);
     // console.log(userFlavorLabels,userFlavorValue);
 
-
-
   });
+  t1.addEventListener("aux",function(e){
+    s = document.getElementById('overPerc');
+    s.innerHTML = "";
+    var overlap = e.data;
+    console.log(overlap);
+    var overlapObj = JSON.parse(overlap);
+    s.innerHTML = "The user is "+overlapObj.score+"% likely to eat this dish";
+  });
+
   $(window).scroll(function() {
       if (isScrolledIntoView('#imageTeam')){
         if (inViewI){ return ;}
@@ -176,6 +242,11 @@ $(document).ready(function(){
           if (inViewF) { return; }
           inViewF = true;
           loadFlavors(spicy,flavorLabels,flavorValue);
+      }
+      if (isScrolledIntoView('#userFlavOverlap')) {
+          if (inViewFo) { return; }
+          inViewFo = true;
+          loadFlavorsOverlap(flavorLabels,flavorValue,userFlavorValue);
       }
     });
 });

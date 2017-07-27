@@ -80,14 +80,12 @@
               <thead>
                 <tr>
                   <th>Dish Name</th>
-                  <th>New Score</th>
                   <th>Old Score</th>
+                  <th>New Score</th>
                 </tr>
               </thead>
-              <tbody>
-                <td id="dName"></td>
-                <td id="nScore"></td>
-                <td id="oScore"></td>
+              <tbody id="userFoodTagTbody">
+
               </tbody>
             </table>
           </div>
@@ -101,14 +99,12 @@
               <thead>
                 <tr>
                   <th>Cuisine Name</th>
-                  <th>New Cuisine</th>
-                  <th>Old Cuisine</th>
+                  <th>Old Score</th>
+                  <th>New Score</th>
                 </tr>
               </thead>
-              <tbody>
-                <td id="dName"></td>
-                <td id="nCui"></td>
-                <td id="oCui"></td>
+              <tbody id="userCuisineTbody">
+            
               </tbody>
             </table>
           </div>
@@ -125,12 +121,22 @@
                   <th>Score</th>
                 </tr>
               </thead>
-              <tbody>
-                <td id="fl"></td>
-                <td id="sc"></td>
+              <tbody id="userFlavorTbody">
+
               </tbody>
             </table>
           </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row" id="userFlavOverlap">
+        <div class="col-md-6">
+          <canvas id="overlap" height="350"></canvas>
+        </div>
+        <div class="col-md-6" style="margin-top: 23%">
+          <center>
+            <span id="overPerc" style="font-size: 75px"></span>
+          </center>
         </div>
       </div>
     </div>

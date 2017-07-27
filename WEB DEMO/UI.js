@@ -1,4 +1,5 @@
 var inViewF;
+var inViewFo;
 var inViewU;
 var inViewI;
 var i;
@@ -7,6 +8,7 @@ $(document).ready(function(){
   i = document.getElementById('spicy');
   s = document.getElementById('spiceText');
   inViewF = false;
+  inViewFO = false;
   inViewU = false;
   inViewI = false;
   loadBar();
@@ -96,17 +98,17 @@ function loadG1(tNew,tOld,tNewVal,tOldVal){
         labels: tNew,
         datasets: [{
           label: "User Score",
-          borderColor: 'rgb(139,195,74)',
-          backgroundColor: 'rgba(0,0,255,1)',
-          pointBackgroundColor: 'rgb(139,195,74)',
+          borderColor: 'rgb(33,150,243)',
+          backgroundColor: 'rgba(33,150,243,0.2)',
+          pointBackgroundColor: 'rgb(33,150,243)',
           pointBorderColor: 'rgb(255,255,255)',
           pointRadius: 5,
           data: tOldVal
         },{
           label: "User Score new",
-          borderColor: 'rgb(11,15,52)',
-          backgroundColor: 'rgba(255,0,0,1)',
-          pointBackgroundColor: 'rgb(11,15,52)',
+          borderColor: 'rgb(233,30,99)',
+          backgroundColor: 'rgba(233,30,99,0.2)',
+          pointBackgroundColor: 'rgb(233,30,99)',
           pointBorderColor: 'rgb(255,255,255)',
           pointRadius: 5,
           data: tNewVal
@@ -185,11 +187,14 @@ function loadG2(userFlavorLabels,userFlavorValue){
   }
   });
 }
+function loadCuisine(cNew,cNewVal,cOld,cOldVal){
 
-function loadGraphs(cNew,cNewVal,cold,cOldVal,tNew,tNewVal,tOld,tOldVal,userFlavorLabels,userFlavorValue){
+}
+
+function loadGraphs(cNew,cNewVal,cOld,cOldVal,tNew,tNewVal,tOld,tOldVal,userFlavorLabels,userFlavorValue){
   loadG1(tNew,tOld,tNewVal,tOldVal);
   loadG2(userFlavorLabels,userFlavorValue);
-//  loadG3();
+  loadCuisine(cNew,cNewVal,cOld,cOldVal);
 }
 
 function loadFlavors(spicy,flavorLabels,flavorValue){
@@ -211,6 +216,60 @@ function loadFlavors(spicy,flavorLabels,flavorValue){
       pointBorderColor: 'rgb(255,255,255)',
       pointRadius: 5,
       data: flavorValue
+    }]
+    },
+    options: {
+      scales:{
+        fontSize: 20
+      },
+      scale: {
+        ticks:{
+          // min: 0,
+          // max: 10,
+          fontSize: 17
+        },
+        pointLabels:{
+          fontSize: 20
+        },
+      },
+      legend: {
+        labels:{
+          fontSize: 17,
+          usePointStyle: true
+        }
+      },
+      title:{
+        display: true,
+        text: 'Flavor Chart',
+        fontSize: 30
+      }
+    }
+  });
+}
+
+function loadFlavorsOverlap(flavorLabels,flavorValue,userFlavorValue){
+  var flavorO = document.getElementById('overlap').getContext('2d');
+  var flavChart = new Chart(flavorO ,{
+    type: 'radar',
+    responsive: true,
+    data: {
+      labels: flavorLabels,
+      datasets: [{
+      label: "Dish Flavor Intensity",
+      borderColor: 'rgb(3,169,244)',
+      backgroundColor: 'rgba(3,169,244,0.2)',
+      pointBackgroundColor: 'rgb(3,169,244)',
+      pointBorderColor: 'rgb(255,255,255)',
+      pointRadius: 5,
+      data: flavorValue
+    },{
+      label: "User Flavor Intensity",
+      borderColor: 'rgb(233,30,99)',
+      backgroundColor: 'rgba(233,30,99,0.2)',
+      pointBackgroundColor: 'rgb(233,30,99)',
+      pointBorderColor: 'rgb(255,255,255)',
+      pointRadius: 5,
+      data: userFlavorValue
     }]
     },
     options: {
